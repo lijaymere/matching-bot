@@ -1,0 +1,27 @@
+# railway.yaml - Railway configuration
+build:
+  builder: nixpacks
+  buildCommand: pip install -r requirements.txt
+
+deploy:
+  startCommand: python bot.py
+
+# Environment variables (set these in Railway dashboard)
+variables:
+  - key: DATABASE_URL
+    description: PostgreSQL database URL
+    generate: true  # Railway will auto-generate this
+    
+  - key: REDIS_URL
+    description: Redis connection URL
+    generate: true  # Railway will auto-generate this
+    
+  - key: PORT
+    value: "8080"
+    description: Port to run the bot on
+
+# Health check
+healthcheck:
+  path: /
+  initialDelay: 30
+  periodSeconds: 10
